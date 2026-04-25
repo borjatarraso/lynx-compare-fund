@@ -2,8 +2,6 @@
 
 Mirrors :mod:`lynx_compare.display` so the head-to-head fund comparison
 looks indistinguishable in vibe from the equity comparison tool:
-from lynx_investor_core.translations import t as _t  # i18n helper
-
 * Centered header `Panel` with `◆ LYNX COMPARE FUND ◆` title.
 * Comparability warnings rendered as blinking banners.
 * Profile card is a `Table(box=DOUBLE_EDGE, border_style="bright_blue")`
@@ -16,6 +14,8 @@ from lynx_investor_core.translations import t as _t  # i18n helper
 """
 
 from __future__ import annotations
+
+from lynx_investor_core.translations import t as _t  # i18n helper
 
 from rich import box
 from rich.align import Align
@@ -230,7 +230,7 @@ def render_section(section: SectionResult, ticker_a: str,
     )
     t.add_column(f"[bold]{ticker_a}[/]", justify="right", ratio=3, no_wrap=True)
     t.add_column("", justify="center", width=8, no_wrap=True)
-    t.add_column("Metric", justify="center", ratio=3, no_wrap=True, style="bold")
+    t.add_column(_t("metric"), justify="center", ratio=3, no_wrap=True, style="bold")
     t.add_column("", justify="center", width=8, no_wrap=True)
     t.add_column(f"[bold]{ticker_b}[/]", justify="left", ratio=3, no_wrap=True)
 
