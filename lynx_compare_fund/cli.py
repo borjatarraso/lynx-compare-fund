@@ -216,6 +216,7 @@ def run_cli(argv: Optional[list] = None) -> int:
         pass
 
     from rich.console import Console
+    from lynx_investor_core.translations import t as _t
     errc = Console(stderr=True)
 
     # --- Standalone About (no mode required) -------------------------------
@@ -257,8 +258,9 @@ def run_cli(argv: Optional[list] = None) -> int:
     set_mode(args.run_mode)
 
     mode_label = (
-        "[bold green]PRODUCTION[/]" if args.run_mode == "production"
-        else "[bold yellow]TESTING[/]"
+        f"[bold green]{_t('mode_production', default='PRODUCTION')}[/]"
+        if args.run_mode == "production"
+        else f"[bold yellow]{_t('mode_testing', default='TESTING')}[/]"
     )
     errc.print(f"Mode: {mode_label}  |  Timeout: {args.timeout}s per fund")
 

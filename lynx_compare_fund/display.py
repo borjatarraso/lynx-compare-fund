@@ -2,6 +2,7 @@
 
 Mirrors :mod:`lynx_compare.display` so the head-to-head fund comparison
 looks indistinguishable in vibe from the equity comparison tool:
+from lynx_investor_core.translations import t as _t  # i18n helper
 
 * Centered header `Panel` with `◆ LYNX COMPARE FUND ◆` title.
 * Comparability warnings rendered as blinking banners.
