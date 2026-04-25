@@ -4,6 +4,15 @@ from __future__ import annotations
 
 import pytest
 
+
+@pytest.fixture(autouse=True)
+def _pin_english_language():
+    """Display tests assert on English literals — pin language to en."""
+    from lynx_investor_core.translations import set_language
+    set_language("en")
+    yield
+
+
 from lynx_fund.models import (
     AllocationMetrics,
     CostMetrics,
