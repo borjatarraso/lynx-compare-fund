@@ -305,11 +305,11 @@ def render_scoreboard(console: Console, cr: ComparisonResult) -> None:
         header_style=C_HEADER,
         expand=True,
         padding=(0, 2),
-        title=f"[bold white]{DOT} Section Scoreboard {DOT}[/]",
+        title=f"[bold white]{DOT} {_t('section_scoreboard')} {DOT}[/]",
     )
-    t.add_column("Section", justify="center", ratio=2, style="bold")
+    t.add_column(_t("section_label"), justify="center", ratio=2, style="bold")
     t.add_column(cr.ticker_a, justify="center", ratio=1)
-    t.add_column("Winner", justify="center", ratio=1)
+    t.add_column(_t("winner_label"), justify="center", ratio=1)
     t.add_column(cr.ticker_b, justify="center", ratio=1)
 
     for s in cr.sections:
@@ -322,7 +322,7 @@ def render_scoreboard(console: Console, cr: ComparisonResult) -> None:
             a_cell = Text(f"{s.wins_a}W", style=C_LOSE)
             b_cell = Text(f"{s.wins_b}W", style=C_WIN)
         else:
-            winner_cell = Text(f"{ARROW_TIE} Tie", style=C_TIE)
+            winner_cell = Text(f"{ARROW_TIE} {_t('tie_label')}", style=C_TIE)
             a_cell = Text(f"{s.wins_a}W", style=C_TIE)
             b_cell = Text(f"{s.wins_b}W", style=C_TIE)
         t.add_row(s.name, a_cell, winner_cell, b_cell)
