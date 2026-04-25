@@ -1,0 +1,4 @@
+rich>=13.7
+textual>=0.50
+flask>=3.0
+argcomplete>=3.0
