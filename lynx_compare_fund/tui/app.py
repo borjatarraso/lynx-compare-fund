@@ -16,6 +16,8 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import Footer, Header, Input, Label, Static
 
+from lynx_investor_core.translations import t as _t
+
 from lynx_compare_fund import SUITE_LABEL, __version__
 from lynx_compare_fund.about import APP_NAME, get_about_text, get_logo_ascii
 from lynx_compare_fund.tui.themes import THEME_NAMES, register_all_themes
@@ -26,7 +28,7 @@ from lynx_compare_fund.tui.themes import THEME_NAMES, register_all_themes
 # ---------------------------------------------------------------------------
 
 class AboutModal(ModalScreen):
-    BINDINGS = [Binding("escape", "dismiss_modal", "Close")]
+    BINDINGS = [Binding("escape", "dismiss_modal", _t("tui_close"))]
 
     DEFAULT_CSS = """
     AboutModal { align: center middle; }
@@ -89,10 +91,10 @@ class LynxCompareFundApp(App):
     """
 
     BINDINGS = [
-        Binding("ctrl+l", "clear", "Clear"),
-        Binding("a", "about", "About"),
-        Binding("t", "cycle_theme", "Theme"),
-        Binding("q", "quit", "Quit"),
+        Binding("ctrl+l", "clear", _t("tui_clear")),
+        Binding("a", "about", _t("btn_about")),
+        Binding("t", "cycle_theme", _t("tui_theme")),
+        Binding("q", "quit", _t("btn_quit")),
     ]
 
     def __init__(self, ticker_a: str | None = None,
@@ -106,9 +108,9 @@ class LynxCompareFundApp(App):
         yield Header(show_clock=False)
         with Horizontal(id="top"):
             yield Static("[bold]A:[/]")
-            yield Input(placeholder="e.g. VTI", id="a")
+            yield Input(placeholder=_t("tui_compare_a_placeholder"), id="a")
             yield Static("[bold]B:[/]")
-            yield Input(placeholder="e.g. ITOT", id="b")
+            yield Input(placeholder=_t("tui_compare_b_placeholder"), id="b")
         with VerticalScroll(id="output"):
             yield Static(
                 f"[bold blue]{APP_NAME} v{__version__}[/]\n"
