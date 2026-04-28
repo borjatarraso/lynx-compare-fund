@@ -16,6 +16,8 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
+from lynx_investor_core.translations import t as _t
+
 from lynx_compare_fund import SUITE_LABEL, __version__, __year__
 from lynx_compare_fund.about import (
     APP_NAME,
@@ -107,9 +109,9 @@ class SplashScreen:
         tk.Label(center, text=f"{DIAMOND}  {DIAMOND}  {DIAMOND}",
                  font=(_FAMILY, 26), bg=SPLASH_BG, fg=ACCENT).pack(pady=(0, 10))
 
-        tk.Label(center, text="LYNX  COMPARE  FUND", font=FONT_SPLASH,
+        tk.Label(center, text=_t("banner_lynx_compare_fund"), font=FONT_SPLASH,
                  bg=SPLASH_BG, fg=FG).pack(pady=(0, 4))
-        tk.Label(center, text="Side-by-side fund comparison",
+        tk.Label(center, text=_t("compare_fund_subtitle"),
                  font=FONT_SPLASH_SUB, bg=SPLASH_BG, fg=ACCENT).pack(pady=(0, 24))
 
         tk.Label(
@@ -126,7 +128,7 @@ class SplashScreen:
         self.bar_fill = tk.Frame(self.bar_frame, bg=ACCENT, height=3, width=0)
         self.bar_fill.place(x=0, y=0, relheight=1)
 
-        self.loading = tk.Label(center, text="Loading...", font=FONT_SMALL,
+        self.loading = tk.Label(center, text=_t("loading"), font=FONT_SMALL,
                                 bg=SPLASH_BG, fg=FG_DIM)
         self.loading.pack()
 
@@ -230,10 +232,10 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
                       activeforeground=BTN_FG, tearoff=0)
     file_menu = tk.Menu(menubar, tearoff=0, bg=BG_SURFACE, fg=FG,
                         activebackground=ACCENT, activeforeground=BTN_FG)
-    file_menu.add_command(label="About", command=lambda: _show_about_dialog(root))
+    file_menu.add_command(label=_t("btn_about"), command=lambda: _show_about_dialog(root))
     file_menu.add_separator()
-    file_menu.add_command(label="Quit", command=root.quit, accelerator="Ctrl+Q")
-    menubar.add_cascade(label="File", menu=file_menu)
+    file_menu.add_command(label=_t("btn_quit"), command=root.quit, accelerator="Ctrl+Q")
+    menubar.add_cascade(label=_t("menu_file"), menu=file_menu)
 
     theme_menu = tk.Menu(menubar, tearoff=0, bg=BG_SURFACE, fg=FG,
                          activebackground=ACCENT, activeforeground=BTN_FG)
@@ -243,7 +245,7 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
                 label=name,
                 command=lambda n=name: cycler.set(n) if hasattr(cycler, "set") else None,
             )
-    menubar.add_cascade(label="Themes", menu=theme_menu)
+    menubar.add_cascade(label=_t("menu_themes"), menu=theme_menu)
     root.config(menu=menubar)
 
     # ── Hero ────────────────────────────────────────────────────────────
@@ -264,39 +266,39 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
     titles.pack(side=tk.LEFT, fill=tk.X, expand=True)
     ttk.Label(titles, text=f"{TROPHY}  Lynx Compare Fund",
               style="Title.TLabel").pack(anchor=tk.W)
-    ttk.Label(titles, text="Head-to-head Exchange-Traded Fund analysis",
+    ttk.Label(titles, text=_t("compare_fund_subtitle"),
               style="Sub.TLabel").pack(anchor=tk.W)
     ttk.Label(titles,
               text=f"v{__version__}  {BULLET}  {SUITE_LABEL}",
               style="Dim.TLabel").pack(anchor=tk.W, pady=(2, 0))
 
-    ttk.Button(hero, text="Quit", style="Subtle.TButton",
+    ttk.Button(hero, text=_t("btn_quit"), style="Subtle.TButton",
                command=root.quit).pack(side=tk.RIGHT, padx=(8, 0))
 
     # ── Search bar ──────────────────────────────────────────────────────
     bar = ttk.Frame(root, style="Lynx.TFrame", padding=(16, 4, 16, 8))
     bar.pack(fill=tk.X)
 
-    ttk.Label(bar, text="Fund A:", style="Lynx.TLabel").pack(side=tk.LEFT, padx=(0, 4))
+    ttk.Label(bar, text=_t("compare_a_label_fund"), style="Lynx.TLabel").pack(side=tk.LEFT, padx=(0, 4))
     var_a = tk.StringVar(value=ticker_a or "")
     e_a = ttk.Entry(bar, textvariable=var_a, width=14, style="Lynx.TEntry", font=FONT)
     e_a.pack(side=tk.LEFT, padx=(0, 12))
 
-    ttk.Label(bar, text="Fund B:", style="Lynx.TLabel").pack(side=tk.LEFT, padx=(0, 4))
+    ttk.Label(bar, text=_t("compare_b_label_fund"), style="Lynx.TLabel").pack(side=tk.LEFT, padx=(0, 4))
     var_b = tk.StringVar(value=ticker_b or "")
     e_b = ttk.Entry(bar, textvariable=var_b, width=14, style="Lynx.TEntry", font=FONT)
     e_b.pack(side=tk.LEFT, padx=(0, 12))
 
-    cmp_btn = ttk.Button(bar, text="Compare", style="Lynx.TButton")
+    cmp_btn = ttk.Button(bar, text=_t("btn_compare"), style="Lynx.TButton")
     cmp_btn.pack(side=tk.LEFT, padx=(0, 4))
 
-    refresh_btn = ttk.Button(bar, text="Refresh", style="Subtle.TButton")
+    refresh_btn = ttk.Button(bar, text=_t("btn_refresh"), style="Subtle.TButton")
     refresh_btn.pack(side=tk.LEFT, padx=(0, 4))
 
-    export_btn = ttk.Button(bar, text="Export…", style="Subtle.TButton")
+    export_btn = ttk.Button(bar, text=_t("btn_export"), style="Subtle.TButton")
     export_btn.pack(side=tk.LEFT, padx=(0, 12))
 
-    status_var = tk.StringVar(value="Ready.")
+    status_var = tk.StringVar(value=_t("ready_"))
     status_lbl = tk.Label(bar, textvariable=status_var, bg=BG, fg=FG_DIM,
                           font=FONT_SMALL)
     status_lbl.pack(side=tk.LEFT, padx=(8, 0))
@@ -322,9 +324,7 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
     welcome = (
         f"{APP_NAME} v{__version__}\n"
         f"{SUITE_LABEL}\n\n"
-        "Enter two fund tickers (e.g. VTI and ITOT) and press Compare. "
-        "Stocks, mutual funds and index funds are rejected at the resolver "
-        "level."
+        f"{_t('welcome_compare_fund')} {_t('tui_resolver_note')}"
     )
 
     def _write(text: str, tag: str | None = None) -> None:
@@ -347,7 +347,7 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
         state["busy"] = True
         cmp_btn.state(["disabled"])
         refresh_btn.state(["disabled"])
-        status_var.set(f"Comparing {a} vs {b}…")
+        status_var.set(f"{_t('btn_compare')} {a} ↔ {b}…")
         status_lbl.configure(fg=ACCENT)
 
         def _worker():
@@ -387,11 +387,11 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
                     text = payload[1]
                     state["result"] = payload[2] if len(payload) > 2 else None
                     _write(text)
-                    status_var.set("Done.")
+                    status_var.set(_t("status_done"))
                     status_lbl.configure(fg=GREEN)
                 else:
-                    _write(f"Error:\n\n{payload[1]}", "err")
-                    status_var.set("Error.")
+                    _write(f"{_t('status_error_label')}\n\n{payload[1]}", "err")
+                    status_var.set(_t("status_error_short"))
                     status_lbl.configure(fg=RED)
                 state["busy"] = False
                 cmp_btn.state(["!disabled"])
@@ -403,11 +403,11 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
     def _export():
         result = state.get("result")
         if not result:
-            messagebox.showinfo("Export", "Run a comparison first.", parent=root)
+            messagebox.showinfo(_t("btn_export"), _t("export_run_first"), parent=root)
             return
         path = filedialog.asksaveasfilename(
             parent=root,
-            title="Export comparison report",
+            title=_t("dialog_export_compare_title"),
             defaultextension=".txt",
             filetypes=[("Text", "*.txt"), ("HTML", "*.html"), ("All", "*.*")],
         )
@@ -417,9 +417,13 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
             from lynx_compare_fund.cli import _do_export
             saved = _do_export(result, path)
             if saved:
-                messagebox.showinfo("Export", f"Saved to:\n{saved}", parent=root)
+                messagebox.showinfo(_t("btn_export"),
+                                    _t("export_saved_to_path").format(path=saved),
+                                    parent=root)
         except Exception as exc:  # noqa: BLE001
-            messagebox.showerror("Export", f"Failed: {exc}", parent=root)
+            messagebox.showerror(_t("btn_export"),
+                                 _t("export_failed").format(err=exc),
+                                 parent=root)
 
     cmp_btn.configure(command=lambda: _start(False))
     refresh_btn.configure(command=lambda: _start(True))
@@ -457,7 +461,7 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
 
 def _show_about_dialog(parent: tk.Tk) -> None:
     win = tk.Toplevel(parent)
-    win.title(f"About — {APP_NAME}")
+    win.title(f"{_t('dialog_about_title')} — {APP_NAME}")
     win.configure(bg=BG)
     win.transient(parent)
     win.geometry("680x540")
@@ -479,17 +483,17 @@ def _show_about_dialog(parent: tk.Tk) -> None:
 
     tk.Label(win, text=f"{about['name']} v{about['version']}",
              font=(_FAMILY, 16, "bold"), bg=BG, fg=ACCENT).pack(pady=(6, 0))
-    tk.Label(win, text=f"Part of {about['suite']} v{about['suite_version']}",
+    tk.Label(win, text=_t("part_of_suite").format(suite=about['suite']) + f" v{about['suite_version']}",
              font=FONT_SMALL, bg=BG, fg=FG_DIM).pack()
-    tk.Label(win, text=f"Released {about['year']}",
+    tk.Label(win, text=_t("released_year").format(year=about['year']),
              font=FONT_SMALL, bg=BG, fg=FG_DIM).pack(pady=(0, 12))
 
     info = tk.Frame(win, bg=BG)
     info.pack(padx=24, pady=4, fill=tk.X)
     rows = [
-        ("Developed by:", DEVELOPER),
-        ("Contact:", DEVELOPER_EMAIL),
-        ("License:", LICENSE_NAME),
+        (_t("developed_by_label"), DEVELOPER),
+        (_t("contact_label"), DEVELOPER_EMAIL),
+        (_t("license_label"), LICENSE_NAME),
     ]
     for r, (k, v) in enumerate(rows):
         tk.Label(info, text=k, font=FONT_BOLD, bg=BG, fg=FG, anchor=tk.W).grid(
@@ -504,7 +508,7 @@ def _show_about_dialog(parent: tk.Tk) -> None:
         padx=24, pady=(14, 8), fill=tk.X,
     )
 
-    ttk.Button(win, text="Close", style="Lynx.TButton",
+    ttk.Button(win, text=_t("close"), style="Lynx.TButton",
                command=win.destroy).pack(pady=(8, 18))
 
     if logo_img:
