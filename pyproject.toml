@@ -52,7 +52,7 @@ lynx-compare-fund-server = "lynx_compare_fund.server:run_server"
 compare-fund = "lynx_compare_fund.plugin:register"
 
 [tool.setuptools.packages.find]
-include = ["lynx_compare_fund*"]
+include = ["lynx_compare_fund*", "lynx_compare_core*", "lynx_compare_ui*", "lynx_compare_web*"]
 
 [tool.setuptools.package-data]
 lynx_compare_fund = ["img/*.png"]
