@@ -55,7 +55,7 @@ compare-fund = "lynx_compare_fund.plugin:register"
 include = ["lynx_compare_fund*", "lynx_compare_core*", "lynx_compare_ui*", "lynx_compare_web*"]
 
 [tool.setuptools.package-data]
-lynx_compare_fund = ["img/*.png"]
+lynx_compare_ui = ["img/*.png"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -19,8 +19,8 @@ from textual.widgets import Footer, Header, Input, Label, Static
 from lynx_investor_core.translations import t as _t
 
 from lynx_compare_fund import SUITE_LABEL, __version__
-from lynx_compare_fund.about import APP_NAME, get_about_text, get_logo_ascii
-from lynx_compare_fund.tui.themes import THEME_NAMES, register_all_themes
+from lynx_compare_ui.about import APP_NAME, get_about_text, get_logo_ascii
+from lynx_compare_ui.tui.themes import THEME_NAMES, register_all_themes
 
 
 # ---------------------------------------------------------------------------
@@ -177,8 +177,8 @@ class LynxCompareFundApp(App):
         body.update(f"[cyan]Comparing {a} vs {b}...[/]")
 
         def _do():
-            from lynx_compare_fund.api import compare_funds
-            from lynx_compare_fund.display import render_full_comparison
+            from lynx_compare_web.api import compare_funds
+            from lynx_compare_ui.display import render_full_comparison
             from lynx_fund.core.ticker import NotAFundError
             console = Console(record=True, width=120)
             try:

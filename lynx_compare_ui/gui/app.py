@@ -24,7 +24,7 @@ from lynx_investor_core.debounce import (
 from lynx_investor_core.translations import t as _t
 
 from lynx_compare_fund import SUITE_LABEL, __version__, __year__
-from lynx_compare_fund.about import (
+from lynx_compare_ui.about import (
     APP_NAME,
     DEVELOPER,
     DEVELOPER_EMAIL,
@@ -385,8 +385,8 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
         def _worker():
             try:
                 from rich.console import Console
-                from lynx_compare_fund.engine import compare as engine_compare
-                from lynx_compare_fund.display import render_full_comparison
+                from lynx_compare_core.engine import compare as engine_compare
+                from lynx_compare_ui.display import render_full_comparison
                 from lynx_fund.core.analyzer import run_full_analysis
                 from lynx_fund.core.ticker import NotAFundError
 
@@ -448,7 +448,7 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
         if not path:
             return
         try:
-            from lynx_compare_fund.cli import _do_export
+            from lynx_compare_ui.cli import _do_export
             saved = _do_export(result, path)
             if saved:
                 messagebox.showinfo(_t("btn_export"),

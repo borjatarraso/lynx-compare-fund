@@ -8,7 +8,7 @@ import json
 
 from rich.console import Console
 
-from lynx_compare_fund.display import render_full_comparison
+from lynx_compare_ui.display import render_full_comparison
 from lynx_compare_core.engine import ComparisonResult
 
 
