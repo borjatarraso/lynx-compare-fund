@@ -16,6 +16,11 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
+from lynx_investor_core.debounce import (
+    DEFAULT_COOLDOWN_MS,
+    LAUNCH_COOLDOWN_MS,
+    ClickDebouncer,
+)
 from lynx_investor_core.translations import t as _t
 
 from lynx_compare_fund import SUITE_LABEL, __version__, __year__
@@ -226,13 +231,19 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
         SUITE_GUI_THEMES = []
 
     state = {"busy": False, "q": queue.Queue(), "result": None}
+    # Per-action cooldown gate so rapid double-clicks (Compare / Refresh
+    # / Export / About / theme menu) can't fire the same action twice.
+    click_gate = ClickDebouncer(cooldown_ms=DEFAULT_COOLDOWN_MS)
 
     # ── Menu ────────────────────────────────────────────────────────────
     menubar = tk.Menu(root, bg=BG_SURFACE, fg=FG, activebackground=ACCENT,
                       activeforeground=BTN_FG, tearoff=0)
     file_menu = tk.Menu(menubar, tearoff=0, bg=BG_SURFACE, fg=FG,
                         activebackground=ACCENT, activeforeground=BTN_FG)
-    file_menu.add_command(label=_t("btn_about"), command=lambda: _show_about_dialog(root))
+    file_menu.add_command(
+        label=_t("btn_about"),
+        command=lambda: click_gate.allow("about") and _show_about_dialog(root),
+    )
     file_menu.add_separator()
     file_menu.add_command(label=_t("btn_quit"), command=root.quit, accelerator="Ctrl+Q")
     menubar.add_cascade(label=_t("menu_file"), menu=file_menu)
@@ -362,6 +373,9 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
         b = var_b.get().strip()
         if not a or not b or state["busy"]:
             return
+        if not click_gate.allow(f"compare:{a}:{b}:{refresh}",
+                                cooldown_ms=LAUNCH_COOLDOWN_MS):
+            return
         state["busy"] = True
         cmp_btn.state(["disabled"])
         refresh_btn.state(["disabled"])
@@ -419,6 +433,8 @@ def run_gui(ticker_a: str | None = None, ticker_b: str | None = None,
         root.after(120, _drain)
 
     def _export():
+        if not click_gate.allow("export"):
+            return
         result = state.get("result")
         if not result:
             messagebox.showinfo(_t("btn_export"), _t("export_run_first"), parent=root)
