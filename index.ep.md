@@ -2,9 +2,9 @@
 ep_version: 1
 project: lynx-compare-fund
 title: Lynx Compare Fund
-status: IDLE
-last_touched: 2026-08-15
-last_touched_text: 15 August 2026
+status: PAUSED
+last_touched: 2026-06-15
+last_touched_text: 15 June 2026
 section: sub
 category: investments
 generated: 2026-09-08
@@ -15,7 +15,7 @@ ep_locked: false   # set true and this file is never regenerated
 
 > Compare fundamentals between funds
 
-🟡 **IDLE** · last touched **15 August 2026** (last commit)
+🟠 **PAUSED** · last touched **15 June 2026** (last commit to project files)
 
 ---
 
@@ -57,7 +57,7 @@ Every report and export emitted by Suite tools includes this same signature in i
 
 New here, or coming back after a while? Read [`index.ep.md`](index.ep.md) (or open [`index.ep.html`](index.ep.html) in a browser) — the standard card that answers what this is, where to look first, and how to run it, in the same shape for every project.
 
-🟠 **PAUSED** · last touched **15 June 2026**
+🟡 **IDLE** · last touched **15 August 2026**
 
 <img src="https://www.cortex-university.com/static/brand/lince-logo.png" alt="Lince" width="96" height="96" align="left" style="margin-right:16px" />
 
