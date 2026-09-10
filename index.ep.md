@@ -77,7 +77,7 @@ Part of the LINCE company · © All rights reserved
 ## Run it
 
 ```bash
-cd ~/claude/lince-investor/lynx-compare-fund
+cd ~/devel/lince-investor/lynx-compare-fund
 ./run                                 # project runner
 lynx-compare-fund                     # console entry point
 lynx-compare-fund-server              # console entry point
