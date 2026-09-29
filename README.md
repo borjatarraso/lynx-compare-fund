@@ -5,6 +5,13 @@
 Part of the [Lince Investor Suite](https://github.com/borjatarraso/lynx-dashboard).
 Depends on [lynx-fund](https://github.com/borjatarraso/lynx-fund) for data.
 
+## Quick install
+
+```bash
+make    # create .venv and install the package + its dependencies
+./run   # start with the defaults
+```
+
 ## Scope
 
 Strictly **Funds only**. Any non-ETF instrument is rejected at the
